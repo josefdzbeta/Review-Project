@@ -2,6 +2,7 @@
 import  express  from "express";
 import dotenv from 'dotenv'
 import conectarDB from "./config/db.js";
+import VeterinarioRoutes from "./routes/veterinarioRoutes.js";
 
 //Mandamos a llamar la función de express
 const app = express();
@@ -9,9 +10,7 @@ dotenv.config();
 
 conectarDB();
 
-app.use('/', (req,res)=>{
-    res.send('hola mundo')
-})
+app.use('/api/veterinarios', VeterinarioRoutes);
 
 //Escuchamos en el puerto 4000
 const PORT = process.env.PORT || 4000
