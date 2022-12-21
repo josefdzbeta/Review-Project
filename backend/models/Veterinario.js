@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import generarId from "../helpers/generarId.js";
 //definiendo schema
 
@@ -39,6 +40,14 @@ const veterinarioSchema = mongoose.Schema({
 
 });
 
+//Hashear password
+veterinarioSchema.pre('save', async function(next) {
+    if(!this.isModified('password')){ //Si el password está hasheado
+        next(); //salta hacia el siguiente middleware
+    }
+    const salt = await bcrypt.genSalt()
+    this.password = await bcrypt.hash(this.password, salt)
+})
 
 const Veterinario = mongoose.model('Veterinario', veterinarioSchema);
 
