@@ -14,6 +14,7 @@ const checkAuth = async (req, res, next) =>{ //Next detiene la ejecución del c�
             req.veterinario = await Veterinario.findById(decoded.id).select('-password -token -confirmado');
 
             return next();
+            
         } catch (error) {
             const e = new Error('Token no válido');
             return res.status(403).json({msg: e.message});
