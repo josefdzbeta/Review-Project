@@ -33,8 +33,6 @@ const pacientesSchema = mongoose.Schema(
   }
 );
 
-const Paciente = mongoose.model('Paciente', pacientesSchema); 
+const Paciente = mongoose.model('Paciente', pacientesSchema); //guardamos referencia del modelo y que tipos de datos tenemos
 export default Paciente;
 
-
-//guardamos referencia del modelo y que tipos de datos tenemos

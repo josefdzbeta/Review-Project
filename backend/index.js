@@ -12,6 +12,11 @@ app.use(express.json())
 //Variables de entorno
 dotenv.config();
 
+//Detectar deprecación en mongoose
+/*process.on('warning', (warning) => {
+    console.log(warning.stack);
+});*/
+
 //Conectar BD
 conectarDB();
 
