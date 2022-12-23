@@ -26,23 +26,42 @@ const obtenerPaciente = async (req, res) =>{
 
   tienen el mismo valor*/
 
+  if(!paciente){
+    return res.status(404).json({msg: 'Usuario no encontrado'})
+  }
+
   if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){ //Los convertimos a String para que no sean Objects Id
     return res.json({msg: 'Acción no válida'}) //Cuando se comparen los ids en mongodb. Es mejor convertirlos a String
   }
-  if(paciente){
-    res.json(paciente);
-  }
+  
+  res.json(paciente);
+  
 }
 const actualizarPaciente = async (req, res) =>{
   const {id} = req.params;
   const paciente = await Paciente.findById(id);
 
+  if(!paciente){
+    return res.status(404).json({msg: 'Usuario no encontrado'})
+  }
   if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){ //Los convertimos a String para que no sean Objects Id
     return res.json({msg: 'Acción no válida'}) //Cuando se comparen los ids en mongodb. Es mejor convertirlos a String
   }
-  if(paciente){
-    res.json(paciente);
+  //Actualizar paciente
+  //En caso de que no esté presente lo que estamos modificando, añadir lo que el objeto ya tiene
+  paciente.nombre = req.body.nombre || paciente.nombre;
+  paciente.propietario = req.body.propietario || paciente.propietario;
+  paciente.email = req.body.email || paciente.email;
+  paciente.fecha = req.body.fecha || paciente.fecha;
+  paciente.sintomas = req.body.sintomas || paciente.sintomas;
+
+  try {
+    const pacienteActualizado = await paciente.save()
+    res.json(pacienteActualizado)
+  } catch (error) {
+    console.log(error)
   }
+  
 }
 const eliminarPaciente = async (req, res) =>{
 
