@@ -64,7 +64,22 @@ const actualizarPaciente = async (req, res) =>{
   
 }
 const eliminarPaciente = async (req, res) =>{
+  const {id} = req.params;
+  const paciente = await Paciente.findById(id);
 
+  if(!paciente){
+    return res.status(404).json({msg: 'Usuario no encontrado'})
+  }
+  if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){ //Los convertimos a String para que no sean Objects Id
+    return res.json({msg: 'Acción no válida'}) //Cuando se comparen los ids en mongodb. Es mejor convertirlos a String
+  }
+
+  try {
+    await paciente.deleteOne()
+    res.json({msg: 'Paciente eliminado'})
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 
