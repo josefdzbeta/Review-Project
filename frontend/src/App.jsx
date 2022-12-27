@@ -14,7 +14,6 @@ function App() {
           <Route path="registrar" element={<Registrar />}/> 
           <Route path="reset-password" element={<ResetPassword />}/> 
           <Route path="confirmar/:id" element={<ConfirmarCuenta />}/> {/*:id ruta dinámica */}
-          
         </Route> 
       </Routes>
     </BrowserRouter>
