@@ -4,8 +4,10 @@ import Login from "./paginas/Login";
 import Registrar from "./paginas/Registrar";
 import ResetPassword from "./paginas/ResetPassword";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
+
 function App() {
 //Route agrupa todos los componentes que pertenezcan a AuthLayout
+
   return (
     <BrowserRouter>
       <Routes>
