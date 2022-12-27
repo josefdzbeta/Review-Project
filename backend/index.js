@@ -20,7 +20,7 @@ dotenv.config();
 //Conectar BD
 conectarDB();
 
-const dominiosPermitidos = ['http://localhost:5173']
+const dominiosPermitidos = [process.env.FRONTEND_URL]
 const corsOptions = {
     origin: function (origin, callback) {
         if(dominiosPermitidos.indexOf(origin) !== -1){ //Si es diferente a -1 es que lo encontró
