@@ -14,7 +14,7 @@ const ConfirmarCuenta = () => {
     useEffect(() => {
         const confirmarCuenta = async () => {
             try {
-                const url = `http://localhost:4000/api/veterinarios/confirmar/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios/confirmar/${id}`
                 const { data } = await axios(url)
                 setCuentaConfirmada(true)
                 setAlerta({
@@ -31,12 +31,11 @@ const ConfirmarCuenta = () => {
         }
         confirmarCuenta();
     }, [])
-
     return (
         <>
             <div>
                 <h1 className="text-indigo-600 font-black text-6xl">
-                    Confirma tu Cuenta y Comienza a Administrar  {""}
+                    Confirma tu Cuenta y Comienza a Administrar 
                     <span className="text-black">tus Pacientes</span>
                 </h1>
             </div>
