@@ -29,7 +29,7 @@ const Registrar = () => {
 
     //Crear usuario en la API
     try {
-      const url = 'http://localhost:5173/api/veterinarios'
+      const url = 'http://localhost:4000/api/veterinarios'
       const respuesta = await axios.post(url, {nombre, email, password}) //Creamos objeto con los valores del formulario
       console.log(respuesta);
     } catch (error) {
