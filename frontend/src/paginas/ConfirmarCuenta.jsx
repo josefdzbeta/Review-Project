@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Alerta from '../components/Alerta';
-import axios from 'axios'
+import clienteAxios from '../config/axios';
 
 const ConfirmarCuenta = () => {
     const [cuentaConfirmada, setCuentaConfirmada] = useState(false)
@@ -9,51 +9,53 @@ const ConfirmarCuenta = () => {
     const [alerta, setAlerta] = useState({})
 
     const params = useParams()
-    const { id } = params
+    const {id } = params
 
     useEffect(() => {
         const confirmarCuenta = async () => {
-            try {
-                const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios/confirmar/${id}`
-                const { data } = await axios(url)
-                setCuentaConfirmada(true)
-                setAlerta({
-                    msg: data.msg
-                })
-            } catch (error) {
-                setAlerta({
-                    msg: error.response.data.msg,
-                    error: true
-                })
-            }
+          try {
+            const url = `/veterinarios/confirmar/${id}`
+            const {data } = await clienteAxios(url)
+            setCuentaConfirmada(true)
+            setAlerta({
+              msg: data.msg
+            })
+          } catch (error) {
+            setAlerta({
+              msg: error.response.data.msg,
+              error: true
+            })
+          }
 
-            setCargando(false)
+          setCargando(false)
         }
         confirmarCuenta();
     }, [])
+
     return (
         <>
-            <div>
+          <div>
                 <h1 className="text-indigo-600 font-black text-6xl">
-                    Confirma tu Cuenta y Comienza a Administrar 
+                    Confirma tu Cuenta y Comienza a Administrar  {""} 
                     <span className="text-black">tus Pacientes</span>
                 </h1>
             </div>
 
             <div className='mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white'>
-                {!cargando &&
-                    <Alerta
-                        alerta={alerta}
-                    />}
+                {!cargando &&  
+                  <Alerta 
+                    alerta={alerta}
+                  />}
 
-                {cuentaConfirmada && (
+                  {cuentaConfirmada && (
                     <Link
-                        className='block text-center my-5 text-gray-500'
-                        to="/">Iniciar Sesión</Link >
-                )}
+                      className='block text-center my-5 text-gray-500'
+                      to="/">Iniciar Sesión</Link>
+                  ) }
             </div>
         </>
     )
-};
+  };
+  
+  export default ConfirmarCuenta;
 
-export default ConfirmarCuenta;
