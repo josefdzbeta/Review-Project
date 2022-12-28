@@ -86,7 +86,12 @@ const autentificarUsuario = async (req, res) =>{
     // Comprobar que el password que introduce es correcto
     if(await usuario.comprobarPassword(password)){
        //Autentificar
-       res.json({token: generarJWT(usuario.id)});
+       res.json({
+        _id : usuario._id,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        token: generarJWT(usuario.id)
+       });
     }else{
         const error = new Error('La contraseña es inválida')
         return res.status(403).json({msg: error.message})
