@@ -15,7 +15,7 @@ const ConfirmarCuenta = () => {
         const confirmarCuenta = async () => {
           try {
             const url = `/veterinarios/confirmar/${id}`
-            const {data } = await clienteAxios(url)
+            const { data } = await clienteAxios(url)
             setCuentaConfirmada(true)
             setAlerta({
               msg: data.msg
@@ -58,4 +58,3 @@ const ConfirmarCuenta = () => {
   };
   
   export default ConfirmarCuenta;
-
