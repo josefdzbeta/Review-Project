@@ -3,6 +3,7 @@ import AuthLayout from "./layout/AuthLayout";
 import Login from "./paginas/Login";
 import Registrar from "./paginas/Registrar";
 import ResetPassword from "./paginas/ResetPassword";
+import NuevaPass from "./paginas/NuevaPass";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Login />}/> {/* Index define lo que es el primer componente*/ }
           <Route path="registrar" element={<Registrar />}/> 
           <Route path="reset-password" element={<ResetPassword />}/> 
+          <Route path="reset-password/:token" element={<NuevaPass />}/> 
           <Route path="confirmar/:id" element={<ConfirmarCuenta />}/> {/*:id ruta dinámica */}
         </Route> 
       </Routes>
