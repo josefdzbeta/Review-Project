@@ -7,11 +7,16 @@ const AuthProvider = ({children}) =>{
 
     const [auth, setAuth] = useState({})
     return (
-        <AuthContext.Provider>
+        <AuthContext.Provider
+        value={{
+            auth,
+            setAuth
+        }}> {/*le pasaremos un objeto con todos los valores disponibles cuando se llame a useAuth */}
+            {children}
             {/* Authprovider contiene los datos */}
         </AuthContext.Provider>
     )
-} //Sería un componente grande que va a tener como hijo todos los componentes de la app
+} //Sería como un componente grande que va a tener como hijo todos los componentes de la app
 
 export {
     AuthProvider
