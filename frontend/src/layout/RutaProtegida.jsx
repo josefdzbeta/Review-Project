@@ -1,5 +1,7 @@
 import { Outlet,Navigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 
 const RutaProtegida = () => {
     const {auth, cargando} = useAuth() //Extraemos toda la información del context
@@ -9,9 +11,10 @@ const RutaProtegida = () => {
     if(cargando) return 'cargando'
   return (
     <>
-        <h1>it works</h1>
         
-        {auth?._id ? <Outlet /> : <Navigate to="/" />} {/*Si auth tiene el token de usuario, muestra el outlet(el contenido de cada página), sino, redirigir usuario a inicio de sesión*/}
+        <Header />
+          {auth?._id ? (<main className="container mx-auto mt-20"><Outlet /></main> ): <Navigate to="/" />} {/*Si auth tiene el token de usuario, muestra el outlet(el contenido de cada página), sino, redirigir usuario a inicio de sesión*/}
+        <Footer />
     </>
   )
 }
