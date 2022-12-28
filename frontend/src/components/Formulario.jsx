@@ -34,9 +34,10 @@ const Formulario = () => {
     const {msg} = alerta
   return (
     <>
-        <p className="text-lg text-center mb-10">
-            Añadir y <span className="text-indigo-600 font-bold">Administrar</span> pacientes
-        </p>
+        <h2 className="font-black text-3xl text-center">Administrador de Pacientes</h2>
+
+        <p className="text-xl mt-5 mb-10 text-center">Añadir y Adminisitrar<span className="text-indigo-600 font-bold">tus pacientes</span></p>
+
         <form className="bg-white py-10 px-5 mb-10 lg:mb-5 shadow-md rounded-md" onSubmit={handleSubmit}>
             <div className="mb-5">
                 <label htmlFor="nombre" className="text-gray-700 uppercase font-bold">Nombre Mascota</label>

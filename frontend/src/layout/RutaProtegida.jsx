@@ -5,8 +5,6 @@ import Footer from "../components/Footer"
 
 const RutaProtegida = () => {
     const {auth, cargando} = useAuth() //Extraemos toda la información del context
-    console.log(auth);
-    console.log(cargando);
 
     if(cargando) return 'cargando'
   return (

@@ -6,9 +6,11 @@ const PacientesContext = createContext();
 const PacientesProvider = ({children}) =>{
 
     const [pacientes, setPacientes] = useState([])
+    const [paciente, setPaciente] = useState({})
 
     useEffect(() =>{
         const obtenerPacientes = async () =>{
+            
             try {
                 
                 const token = localStorage.getItem('token')
@@ -21,9 +23,7 @@ const PacientesProvider = ({children}) =>{
                     }
                 }
                 const {data} = await clienteAxios('/pacientes', config)
-
-                
-
+                setPacientes(data)
 
             } catch (error) {
                 console.log(error)
@@ -53,11 +53,15 @@ const PacientesProvider = ({children}) =>{
         }
     }
 
+    const setEdicion = (paciente) =>{
+        setPaciente(paciente)
+    }
     return (
         <PacientesContext.Provider 
         value={{
             pacientes,
-            guardarPaciente
+            guardarPaciente,
+            setEdicion
         }}>
             {children}
         </PacientesContext.Provider>
