@@ -6,13 +6,17 @@ const AuthContext = createContext() //Hacemos referencia de cómo se va a llamar
 
 const AuthProvider = ({children}) =>{
 
+    const [cargando, setCargando] = useState(true)
     const [auth, setAuth] = useState({})
 
     useEffect(()=>{
         const autenticarUsuario = async () =>{
             const token = localStorage.getItem('token')
 
-            if (!token) return
+            if (!token){
+                setCargando(false)
+                return
+            }
             //Creamos el header de configuración 
             //Tenemos declarado que el request inicie como Bearer en express
             const config = {
@@ -28,6 +32,7 @@ const AuthProvider = ({children}) =>{
                 console.log(error.response.data.msg);
                 setAuth({})
             }
+            setCargando(false)
         }
         autenticarUsuario()
     }, [])
@@ -35,7 +40,8 @@ const AuthProvider = ({children}) =>{
         <AuthContext.Provider
         value={{
             auth,
-            setAuth
+            setAuth,
+            cargando
         }}> {/*le pasaremos un objeto con todos los valores disponibles cuando se llame a useAuth */}
             {children}
             {/* Authprovider contiene los datos */}
