@@ -2,6 +2,7 @@ import Veterinario from "../models/Veterinario.js"
 import generarJWT from "../helpers/generarJWT.js"
 import generarId from "../helpers/generarId.js"
 import emailRegistro from "../helpers/emailRegistro.js"
+import emailResetPassword from "../helpers/emailResetPassword.js"
 
 const registrar =  async (req, res)=>{
     const {email, nombre} = req.body
@@ -95,6 +96,7 @@ const autentificarUsuario = async (req, res) =>{
 const resetPassword = async (req, res) =>{
     const {email} = req.body;
 
+    //Buscamos email
     const existeVeterinario = await Veterinario.findOne({email});
 
     if(!existeVeterinario){
@@ -104,6 +106,14 @@ const resetPassword = async (req, res) =>{
     try {
         existeVeterinario.token = generarId();
         await existeVeterinario.save(); //guardamos el token en el usuario para poder reiniciar la contraseña
+        
+        //Enviar email con instrucciones de reestablecer la contraseña
+        emailResetPassword({
+            email,
+            nombre: existeVeterinario.nombre,
+            token: existeVeterinario.token
+        })
+        
         res.json({msg: 'Hemos enviado un email con las instrucciones'});
 
     } catch (error) {
