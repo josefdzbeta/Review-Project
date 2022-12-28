@@ -2,7 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer className='py-10'>
+        <p className='text-center font-bold'>APV - Administrador de Pacientes de Veterinaria <span className='text-indigo-600'>Veterinaria</span></p>
+    </footer>
   )
 }
 
