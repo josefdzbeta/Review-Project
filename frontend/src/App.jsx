@@ -10,6 +10,7 @@ import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import AdministrarPacientes from "./paginas/AdministrarPacientes";
 
 import { AuthProvider } from "./context/AuthProvider";
+import { PacientesProvider } from "./context/PacientesProvider";
 function App() {
 
 //Route agrupa todos los componentes para que puedan pertenecer a un mismo layout
@@ -18,21 +19,23 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          {/* Área pública */}
-          <Route path="/" element={<AuthLayout/>}> //Cargar componente
-            <Route index element={<Login />}/> {/* Index define lo que es el primer componente*/ }
-            <Route path="registrar" element={<Registrar />}/> 
-            <Route path="reset-password" element={<ResetPassword />}/> 
-            <Route path="reset-password/:token" element={<NuevaPass />}/> 
-            <Route path="confirmar/:id" element={<ConfirmarCuenta />}/> {/*:id ruta dinámica */}
-          </Route> 
-          {/* Área privada */}
-          <Route path="/admin" element={<RutaProtegida />}>
-            <Route index element={<AdministrarPacientes />} />
-          </Route>
+        <PacientesProvider>
+          <Routes>
+            {/* Área pública */}
+            <Route path="/" element={<AuthLayout/>}> //Cargar componente
+              <Route index element={<Login />}/> {/* Index define lo que es el primer componente*/ }
+              <Route path="registrar" element={<Registrar />}/> 
+              <Route path="reset-password" element={<ResetPassword />}/> 
+              <Route path="reset-password/:token" element={<NuevaPass />}/> 
+              <Route path="confirmar/:id" element={<ConfirmarCuenta />}/> {/*:id ruta dinámica */}
+            </Route> 
+            {/* Área privada */}
+            <Route path="/admin" element={<RutaProtegida />}>
+              <Route index element={<AdministrarPacientes />} />
+            </Route>
 
-        </Routes>
+          </Routes>
+        </PacientesProvider>
       </AuthProvider>
     </BrowserRouter>
   )

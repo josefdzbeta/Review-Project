@@ -1,15 +1,18 @@
 import { useState } from "react"
 import Alerta from './Alerta'
+import usePacientes from "../hooks/usePacientes"
 
 const Formulario = () => {
 
     const [nombre, setNombre] = useState('')  
     const [propietario, setPropietario] = useState('')  
     const [email, setEmail] = useState('')
-    const [fecha, setFecha] = useState(Date.now())  
+    const [fecha, setFecha] = useState('')  
     const [sintomas, setSintomas] = useState('')  
 
     const [alerta, setAlerta] = useState({})
+    
+    const {guardarPaciente} = usePacientes() //extraemos guardarPaciente de usePacientes
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -23,6 +26,9 @@ const Formulario = () => {
             
             return
         }
+
+        setAlerta({})
+        guardarPaciente({nombre, propietario, email, fecha, sintomas})
     }
 
     const {msg} = alerta
@@ -38,7 +44,7 @@ const Formulario = () => {
             </div>
             <div className="mb-5">
                 <label htmlFor="propietario" className="text-gray-700 uppercase font-bold">Nombre Propietario</label>
-                <input id="propietario" type="text" placeholder="React" className="border-2 w-full p-2 placeholder:-gray-400 rounded-md" value={propietario} nChange={(e) => setPropietario(e.target.value)}/>
+                <input id="propietario" type="text" placeholder="React" className="border-2 w-full p-2 placeholder:-gray-400 rounded-md" value={propietario} onChange={(e) => setPropietario(e.target.value)}/>
             </div>
             <div className="mb-5">
                 <label htmlFor="email" className="text-gray-700 uppercase font-bold">Email</label>
