@@ -36,12 +36,19 @@ const AuthProvider = ({children}) =>{
         }
         autenticarUsuario()
     }, [])
+
+    const cerrarSesion = () =>{
+        localStorage.removeItem('token')
+        setAuth({})
+    }
+
     return (
         <AuthContext.Provider
         value={{
             auth,
             setAuth,
-            cargando
+            cargando,
+            cerrarSesion
         }}> {/*le pasaremos un objeto con todos los valores disponibles cuando se llame a useAuth */}
             {children}
             {/* Authprovider contiene los datos */}
