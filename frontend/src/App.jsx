@@ -8,7 +8,7 @@ import ResetPassword from "./paginas/ResetPassword";
 import NuevaPass from "./paginas/NuevaPass";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import AdministrarPacientes from "./paginas/AdministrarPacientes";
-import CambiarPassword from "./paginas/cambiarPassword";
+import CambiarPassword from "./paginas/CambiarPassword";
 import EditarPerfil from "./paginas/EditarPerfil";
 
 import { AuthProvider } from "./context/AuthProvider";
