@@ -1,12 +1,41 @@
+import {useState} from "react";
 import AdminNav from "../components/AdminNav"
 import Alerta from "../components/Alerta";
+import useAuth from "../hooks/useAuth";
 
+const CambiarPassword = () => {
 
-const cambiarPassword = () => {
+    const {guardarPassword} = useAuth()
 
-    const handleSubmit = (e) =>{
+    const [alerta, setAlerta] = useState({})
+    const [password, setPassword] = useState({
+        pwd_actual: '',
+        pwd_nuevo: ''
+    })
+
+    const handleSubmit = async (e) =>{
         e.preventDefault();
+
+        if(Object.values(password).some(campo => campo === '') ){
+            setAlerta({
+                msg: 'Todos los campos son obligatorios',
+                error: true
+            })
+            return
+        }
+
+        if (password.pwd_nuevo.length<6) {
+            setAlerta({
+                msg: 'La contraseña debe ser de al menos de 6 caracteres',
+                error: true
+            })
+        }
+
+        const respuesta = await guardarPassword(password)
+        setAlerta(respuesta)
     }
+
+    const {msg} = alerta
   return (
     <>
         <AdminNav />
@@ -21,23 +50,15 @@ const cambiarPassword = () => {
                 <form onSubmit={handleSubmit}>
 
                     <div className="my-3">
-                        <label className="uppercase font-bold text-gray-600">Nombre</label>
-                        <input type="text" className="border bg-gray-50 w-full p-2 ,t-5 rounded-lg" name="nombre" value={perfil.nombre || ''} onChange={ e =>setPerfil({...perfil, [e.target.name] : e.target.value})} />
-                    </div>
-                    
-                    <div className="my-3">
-                        <label className="uppercase font-bold text-gray-600">Sito web</label>
-                        <input type="text" className="border bg-gray-50 w-full p-2 ,t-5 rounded-lg" name="web" value={perfil.web || ''} onChange={ e =>setPerfil({...perfil, [e.target.name] : e.target.value})} />
+                        <label className="uppercase font-bold text-gray-600">Contraseña actual</label>
+                        <input type="password" className="border bg-gray-50 w-full p-2 mt-5 rounded-lg" name="pwd_actual" placeholder="Introduce tu contraseña actual" onChange={e => setPassword({...password, [e.target.name]: e.target.value})}/> {/* copia el state del password actual y escribe en el state */}
                     </div>
                     <div className="my-3">
-                        <label className="uppercase font-bold text-gray-600">Teléfono</label>
-                        <input type="text" className="border bg-gray-50 w-full p-2 ,t-5 rounded-lg" name="telefono" value={perfil.telefono || ''} onChange={ e =>setPerfil({...perfil, [e.target.name] : e.target.value})}/>
+                        <label className="uppercase font-bold text-gray-600">Introduce nueva contraseña</label>
+                        <input type="password" className="border bg-gray-50 w-full p-2 mt-5 rounded-lg" name="pwd_nuevo" placeholder="Introduce nueva contraseña" onChange={e => setPassword({...password, [e.target.name]: e.target.value})}/>
                     </div>
-                    <div className="my-3">
-                        <label className="uppercase font-bold text-gray-600">Email</label>
-                        <input type="text" className="border bg-gray-50 w-full p-2 ,t-5 rounded-lg" name="email" value={perfil.email || ''} onChange={ e =>setPerfil({...perfil, [e.target.name] : e.target.value})}/>
-                    </div>
-                    <input type="submit" value="Guardar Cambios" className="bg-indigo-700 px-10 py-3 font-bold text-white rounded-lg uppercase w-full mt-5"/>
+                
+                    <input type="submit" value="Actualizar contraseña" className="bg-indigo-700 px-10 py-3 font-bold text-white rounded-lg uppercase w-full mt-5 cursor-pointer" /> 
                 </form>
             </div>
         </div>  
@@ -45,4 +66,4 @@ const cambiarPassword = () => {
   )
 }
 
-export default cambiarPassword
+export default CambiarPassword
